@@ -241,8 +241,7 @@ To make sure this is a reasonable model, we want to check some diagnosis. Firstl
 ```{r, echo=FALSE, message=FALSE}
 # plot the mcmc trace plot to check for the divergence of the model
 mcmc_plot(sense_weak_fit, type = "trace") +
-  labs(title = "Graph 7: Trace plot for Divergence") +
-  theme(plot.title = element_text(face="bold"))
+  labs(title = "Graph 7: Trace plot for Divergence")
 ```
 
 
@@ -395,7 +394,7 @@ kable(odds, caption = "Mean Probability for each case", digits = 3)
 
 Graph 9, even though some of the credible intervals for coefficient estimate include 0,
 the coefficients have the possibility of posing no effects to the voting turnout.
-However, we will still take a look at the effects of each of them. In the table below,
+However, we will still take a look at the effects of each of them. In the table below (Table 5),
 we can see that the respondents who did not know about their feeling regarding the sense
 of belonging to Canada positively influence the log-odds. Here we define odds as in the
 ratio between the amounts staked by the parties to a bet. People who did not have any

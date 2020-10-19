@@ -1,0 +1,936 @@
+*******************************************************************
+*  Stata "do-file" file with labels and missing data specifications
+*  Created by ddltox on Oct 13, 2020  (Tue 04:27 AM EDT)
+*  DDL source file: "/web/sda.artsci.utoronto.ca/htdocs/sdaweb/tmpdir/AAqKj8A9.txt".
+*
+*  Note that the data dictionary is given at the end of this file.
+*  Put the dictionary into a separate file (by editing this file).
+*  Then specify below the name of the dictionary file.
+*
+*  DDL file gives the following dataset description:
+*    Records per case: 1
+*    Record length:    6181
+*******************************************************************
+
+
+label data "General Social Survey, Cycle 27: Social Identity V2"
+
+#delimit ;
+label define recid     99996 "Valid skip" 99997 "Don't know" 99998 "Refusal" 
+                       99999 "Not stated" ;
+label define agegr10   1 "15 to 24 years" 2 "25 to 34 years" 
+                       3 "35 to 44 years" 4 "45 to 54 years" 
+                       5 "55 to 64 years" 6 "65 to 74 years" 
+                       7 "75 years and over" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define sex       1 "Male" 2 "Female" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define marstat   1 "Married" 2 "Living common-law" 3 "Widowed" 
+                       4 "Seperated" 5 "Divorced" 6 "Single, never married" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define hsdsizec  1 "1" 2 "2" 3 "3" 4 "4" 5 "5" 6 "6 or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define ageprgr0  1 "15 to 24 years" 2 "25 to 34 years" 
+                       3 "35 to 44 years" 4 "45 to 54 years" 
+                       5 "55 to 64 years" 6 "65 to 74 years" 
+                       7 "75 years and over" 
+                       95 "No spouse/partner in the household" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define ageprgrd  1 "Respondent 11 + years older" 
+                       2 "Respondent is 6 to 10 years older" 
+                       3 "Respondent is 5 years older" 
+                       4 "Respondent is 4 years older" 
+                       5 "Respondent is 3 years older" 
+                       6 "Respondent is 2 years older" 
+                       7 "Respondent is 1 year older" 
+                       8 "Respondent and spouse/partner are the same age" 
+                       9 "Respondent is 1 year younger" 
+                       10 "Respondent is 2 years younger" 
+                       11 "Respondent is 3 years younger" 
+                       12 "Respondent is 4 years younger" 
+                       13 "Respondent is 5 years younger" 
+                       14 "Respondent is 6 to 10 years younger" 
+                       15 "Respondent is 11+ years younger" 
+                       95 "No spouse/partner in the household" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define agecrygc  1 "0 to 4" 2 "5 to 8" 3 "9 to 11" 4 "12 to 14" 
+                       5 "15 to 17" 6 "18 to 21" 7 "22 to 24" 
+                       8 "25 years and over" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define agehsdyc  85 "85 years and over" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define chinhsdc  0 "None" 4 "4 or more" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define chh0014c  3 "3 or more children" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define chrtime6  1 "No child under 19 years of age at home" 
+                       2 "All children under 5 years of age" 
+                       3 "All children between 5 and 12 years of age" 
+                       4 "All children 13 years of age or older" 
+                       5 "At least one child under 5 years but not all children" 
+                       6 "Other" 96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define parnum    0 "None" 1 "One parent" 2 "Two parents" 
+                       3 "Three parents" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define livarr06  1 "Alone" 2 "Spouse only" 
+                       3 "Spouse and single/non-single child(ren)" 
+                       4 "Single/non-single child(ren) only" 
+                       5 "Living with one or two parents" 
+                       6 "Other living arrangement" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define multigen  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define region    1 "Atlantic region" 2 "Quebec" 3 "Ontario" 
+                       4 "Prairie region" 5 "British Columbia" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define prcode    10 "Newfoundland and Labrador" 
+                       11 "Prince Edward Island" 12 "Nova Scotia" 
+                       13 "New Brunswick" 24 "Quebec" 35 "Ontario" 
+                       46 "Manitoba" 47 "Saskatchewan" 48 "Alberta" 
+                       59 "British Columbia" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define luc_rst   1 "Larger urban population centres (CMA/CA)" 
+                       2 "Rural areas/small population centres (non-CMA/CA)" 
+                       3 "Prince Edward Island" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ium_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ism_10    1 "At least once a day" 
+                       2 "At least once a week (but not every day)" 
+                       3 "At least once a month (but not every week)" 
+                       4 "Not in the past month" 5 "Never" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define ism_20    1 "At least once a day" 
+                       2 "At least once a week (but not every day)" 
+                       3 "At least once a month (but not every week)" 
+                       4 "Not in the past month" 5 "Never" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define ism_30    1 "At least once a day" 
+                       2 "At least once a week (but not every day)" 
+                       3 "At least once a month (but not every week)" 
+                       4 "Not in the past month" 5 "Never" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define iuy_01    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define icr_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define socnet    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define icr_30    1 "Several times a day" 2 "About once a day" 
+                       3 "3-5 times a week" 4 "1-2 times a week" 
+                       5 "A few times per month" 6 "Less than once a month" 
+                       7 "Never" 96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define scr_10    1 "Yes" 2 "No" 3 "No living relatives" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cwr_10    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwr_20    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwr_25    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 
+                       7 "No cell/mobile device or does not text" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define cwr_30    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwr_40    1 "Very satisfied" 2 "Satisfied" 
+                       3 "Neither satisfied nor dissatisfied" 
+                       4 "Dissatisfied" 5 "Very dissatisfied" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cwr_45    1 "Too often" 2 "Not often enough" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define rfe_10c   200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define rfe_20c   200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define rfe_25    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define scf_100c  200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define scf_101   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define scf_102c  200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define scf_110c  200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define cwf_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cwf_20c   200 "200 or more" 996 "Valid skip" 997 "Don't know" 
+                       998 "Refusal" 999 "Not stated" ;
+label define cwf_30    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define clscongc  1 "Less than 5 personal contacts" 
+                       2 "5 to 9 personal contacts" 
+                       3 "10 to 14 personal contacts" 
+                       4 "15 to 24 personal contacts" 
+                       5 "25 to 49 personal contacts" 
+                       6 "50 to 74 personal contacts" 
+                       7 "75 or more personal contacts" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwf_40    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwf_45    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define cwf_50    1 "Every day" 2 "A few times a week" 3 "Once a week" 
+                       4 "2 or 3 times a month" 5 "Once a month" 
+                       6 "Not in the past month" 
+                       7 "Did not use email in the past month" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define cwf_60    1 "Very satisfied" 2 "Satisfied" 
+                       3 "Neither satisfied nor dissatisfied" 
+                       4 "Dissatisfied" 5 "Very dissatisfied" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cwf_65    1 "Too often" 2 "Not often enough" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define scg_120   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_130   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_150   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_160   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_170   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_180   1 "A higher education" 2 "A lower education" 
+                       3 "About half and half" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define scg_190   1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scg_200   1 "A higher household income" 
+                       2 "A lower household income" 3 "About half and half" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define scp_110   96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define scp_115   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define scp_120c  5 "5 or more" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vcg_300   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vcg_310   1 "15 hours or more per month" 
+                       2 "Between 5 and less than 15 hours per month" 
+                       3 "Between 1 and less than 5 hours per month" 
+                       4 "Less than 1 hour per month" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define vcg_320   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vcg_340   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_110   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_120   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_140   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_150   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_160   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_170   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_180   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_190   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_200   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_210   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cer_230   1 "Yes - Specify" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cerd230c  0 "None" 5 "5 or more" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_10c   9 "9 groups or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define grp_20c   6 "6 or more groups" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define grp_25    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_30a   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_30b   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_30c   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_30d   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_30e   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define grp_40    1 "At least once a week" 2 "A few times a month" 
+                       3 "Once a month" 4 "Once or twice a year" 
+                       5 "Not in the past year" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define oif_10    1 "Increased" 2 "Decreased" 3 "Stayed the same" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define oma_110   1 "Union or professional association" 
+                       2 "Political party or group" 
+                       3 "Sports or recreational organization" 
+                       4 "Cultural, educational or hobby organization" 
+                       5 "Religious-affiliated group" 
+                       6 "School group, neighbourhood, civic, community association" 
+                       7 "Service club" 8 "Seniors' group" 
+                       9 "Youth organization" 
+                       10 "Ethnic or immigrant association or club" 
+                       11 "Other type of organization" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define iwo_10c   10 "10 of more years" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define iwo_20    1 "Increased" 2 "Decreased" 3 "Stayed the same" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dpo_10    1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dpo_20    1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dpo_30    1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dpo_60    1 "All" 2 "Most" 3 "About half" 4 "A few" 5 "None" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dpo_70    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_15    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_20    1 "Own illness or disability" 
+                       2 "Out of town or away from home" 3 "Too busy" 
+                       4 "Family obligations" 
+                       5 "Conflicting work or school schedule" 
+                       6 "Weather conditions" 7 "Not interested" 
+                       8 "Felt voting would not make a difference in results" 
+                       9 "Didn't like candidates or campaign issues" 
+                       10 "Not on voters list/problems with ID requirements" 
+                       11 "Too difficult/transportation problems/too far to travel" 
+                       12 "Forgot to vote" 13 "Religious beliefs" 
+                       14 "Not informed on issues" 15 "Undecided" 
+                       16 "Did not vote to protest" 17 "Other - Specify" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define vbr_25    1 "Very likely" 2 "Somewhat likely" 
+                       3 "Not very likely" 4 "Not at all likely" 
+                       5 "Undecided" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_30    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_35    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_40    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define vbr_45    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_05    1 "Very interested" 2 "Somewhat interested" 
+                       3 "Not very interested" 4 "Not at all interested" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define rep_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_20    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_30    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_35    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_40    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_45    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_50    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_60    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_70    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_80    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rep_85    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_300c  50 "50 hours or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define mcr_310   1 "Daily" 2 "Several times each week" 
+                       3 "Several times each month" 4 "Rarely" 5 "Never" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define mcr_320a  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320b  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320c  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320d  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320e  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320f  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_320g  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_325c  50 "50 or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define mcr_330c  50 "50 or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define mcr_335c  50 "50 or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define mcr_340   1 "Daily" 2 "3 to 5 times each week" 
+                       3 "Once or twice each week" 4 "Rarely" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define mcr_350   1 "Every week" 
+                       2 "3 to 5 times each month (but not every week)" 
+                       3 "Once or twice each month" 4 "Rarely" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define mcr_360   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365a  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365b  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365c  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365d  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365e  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define mcr_365f  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define kch_10    1 "Excellent" 2 "Very good" 3 "Good" 4 "Fair" 5 "Poor" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define prd_10    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       7 "Not a Canadian citizen" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define prd_20    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_25    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_30    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_35    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_37    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_40    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_45    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_50    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_55    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_60    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_65    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define prd_70    1 "Very proud" 2 "Proud" 3 "Somewhat proud" 
+                       4 "Not very proud" 5 "Not proud at all" 6 "No opinion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define ans_10    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ans_30    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ans_50    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ans_60    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ans_80    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ans_90a   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90b   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90c   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90d   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90e   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90f   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90g   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90h   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90i   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90j   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90k   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90l   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90m   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90n   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90o   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90p   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90q   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90r   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90s   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90t   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ans_90u   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ici_50    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ici_60    1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define svr_10    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define svr_25    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define svr_30    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define svr_35    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define svr_40    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define svr_45    1 "To a great extent" 2 "To a moderate extent" 
+                       3 "To a small extent" 4 "Not at all" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define mar_110   1 "Working at a paid job or business" 
+                       2 "Looking for paid work" 3 "Going to school" 
+                       4 "Caring for children" 5 "Household work" 6 "Retired" 
+                       7 "Maternity/paternity or parental leave" 
+                       8 "Long term illness" 
+                       9 "Volunteering/care-giving other than for children" 
+                       10 "Other - Specify" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define mar_133   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wet_110   96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define rew_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define agelpdwc  1 "15 years or less" 75 "75 years or more" 
+                       95 "Never worked" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define whw_110   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define whw_120c  075.0 "75 hours or more" 999.6 "Valid skip" 
+                       999.7 "Don't know" 999.8 "Refusal" 999.9 "Not stated" ;
+label define whw_130c  30.0 "30 hours or more" 99.6 "Valid skip" 
+                       99.7 "Don't know" 99.8 "Refusal" 99.9 "Not stated" ;
+label define whw_140c  30.0 "30 hours or more" 99.6 "Valid skip" 
+                       99.7 "Don't know" 99.8 "Refusal" 99.9 "Not stated" ;
+label define wkwehrc   75.0 "75 hours or more" 99.6 "Valid skip" 
+                       99.7 "Don't know" 99.8 "Refusal" 99.9 "Not stated" ;
+label define whw_210   96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define whw_230   1 "A regular daytime schedule or shift" 
+                       2 "A regular evening shift" 3 "A regular night shift" 
+                       4 "A rotating shift ..." 5 "A split shift ..." 
+                       6 "A compressed work week" 7 "On call or casual" 
+                       8 "An irregular schedule" 9 "Other - Specify" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define wfr_510   1 "Very satisfied" 2 "Satisfied" 
+                       3 "Neither satisfied nor dissatisfied" 
+                       4 "Dissatisfied" 5 "Very dissatisfied" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define wfr_520a  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520b  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520c  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520d  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520e  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520f  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520g  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define wfr_520h  1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ehg_all   1 "Less than high school diploma or its equivalent" 
+                       2 "High school diploma or a high school equivalency certificate" 
+                       3 "Trade certificate or diploma" 
+                       4 "College/CEGEP/other non-university certificate or diploma" 
+                       5 "University certificate or diploma below the bachelor's level" 
+                       6 "Bachelor's degree (e.g. B.A., B.Sc., LL.B.)" 
+                       7 "University certificate, diploma, degree above the BA level" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define dh1ged    1 "Less than High School" 
+                       2 "Graduated from High School" 
+                       3 "Post-secondary diploma" 4 "University degree" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define map_110   1 "Working at a paid job or business" 
+                       2 "Looking for paid work" 3 "Going to school" 
+                       4 "Caring for children" 5 "Household work" 6 "Retired" 
+                       7 "Maternity/paternity or parental leave" 
+                       8 "Long term illness" 
+                       9 "Volunteering/care-giving other than for children" 
+                       10 "Other - Specify" 
+                       95 "No spouse/partner in the household" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define eop_200   1 "Less than high school diploma or its equivalent" 
+                       2 "High school diploma or a high school equivalency certificate" 
+                       3 "Trade certificate or diploma" 
+                       4 "College/CEGEP/other non-university certificate or diploma" 
+                       5 "University certificate or diploma below the bachelor's level" 
+                       6 "Bachelor's degree (e.g. B.A., B.Sc., LL.B.)" 
+                       7 "University certificate, diploma, degree above the BA level" 
+                       95 "No spouse/partner in the household" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define brthpcan  1 "Born in Canada" 2 "Born outside Canada" 
+                       5 "No spouse/partner in the household" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define brthcan   1 "Born in Canada" 2 "Born outside Canada" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define brthmacr  1 "Americas" 2 "Europe" 3 "Africa" 4 "Asia" 
+                       5 "Oceania" 6 "Other" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define brthregc  
+                       1 "Born in Canada - Province of birth = Privince of residence" 
+                       2 "Born in Canada - Province of birth ne province of residence" 
+                       3 "Born in Canada - Province/Territory not stated" 
+                       4 "Born outside Canada - North America and Europe" 
+                       5 "Born outside Canada - Other countries" 
+                       6 "Born outside Canada - Country uncodeable" 
+                       7 "Not stated/Don't know which country respondent was born" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define bpr_16    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define yrarri    1 "Prior to 1946" 2 "1946 to 1959" 3 "1960 to 1964" 
+                       4 "1965 to 1969" 5 "1970 to 1974" 6 "1975 to 1979" 
+                       7 "1980 to 1984" 8 "1985 to 1989" 9 "1990 to 1994" 
+                       10 "1995 to 1999" 11 "2000 to 2004" 12 "2005 to 2009" 
+                       13 "2010 to 2013" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define lip_10    1 "The refugee program" 
+                       2 "The program of re-unification with a family member alread..." 
+                       3 "The points system (skilled workers and professionals, inv..." 
+                       4 "Other - Specify" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define lip_15    1 "The respondent" 2 "Family member of respondent" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define brthmcan  1 "Born in Canada" 2 "Born outside Canada" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define brthfcan  1 "Born in Canada" 2 "Born outside Canada" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define ethnic7   1 "Canadian only" 2 "British Isles origins only" 
+                       3 "French only" 4 "Other European only" 
+                       5 "Canadian and other" 
+                       6 "British Isles & other/French & other/British & French &other" 
+                       7 "Other" 96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define ethpr7    1 "Canadian only" 2 "British Isles origins only" 
+                       3 "French only" 4 "Other European only" 
+                       5 "Canadian and other" 
+                       6 "British Isles & other/French & other/British & French &other" 
+                       7 "Other" 95 "No spouse/partner in the household" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define amb_01    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define aip_01    1 "Yes" 2 "No" 5 "No spouse/partner in the household" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define vismin    1 "Visible minority" 2 "Not a visible minority" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define visminpr  1 "Visible minority" 2 "Not a visible minority" 
+                       5 "No spouse/partner in the household" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_100   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_200   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_300   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_500   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_700   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_800   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define sbl_820   1 "Very strong" 2 "Somewhat strong" 3 "Somewhat weak" 
+                       4 "Very weak" 5 "No opinion" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define pct_10    1 "Most people can be trusted" 
+                       2 "You cannot be too careful in dealing with people" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define tip_10    1 "Cannot be trusted at all" 2 "..." 3 "..." 4 "..." 
+                       5 "Can be trusted a lot" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define tip_15    1 "Cannot be trusted at all" 2 "..." 3 "..." 4 "..." 
+                       5 "Can be trusted a lot" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define tip_20    1 "Cannot be trusted at all" 2 "..." 3 "..." 4 "..." 
+                       5 "Can be trusted a lot" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define tip_22    1 "Cannot be trusted at all" 2 "..." 3 "..." 4 "..." 
+                       5 "Can be trusted a lot" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define tip_25    1 "Cannot be trusted at all" 2 "..." 3 "..." 4 "..." 
+                       5 "Can be trusted a lot" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define tnp_10    1 "Most of the people in your neighbourhood" 
+                       2 "Many of the people (in your neighbourhood)" 
+                       3 "A few of the people (in your neighbourhood)" 
+                       4 "Nobody (in your neighbourhood)" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define rlm_10    1 "Very likely" 2 "Somewhat likely" 
+                       3 "Not at all likely" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rlm_15    1 "Very likely" 2 "Somewhat likely" 
+                       3 "Not at all likely" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define rlm_20    1 "Very likely" 2 "Somewhat likely" 
+                       3 "Not at all likely" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_10    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_15    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_20    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_25    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_30    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_35    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_40    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_45    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_50    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dis_55    1 "Yes - Specify" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define discrim   1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dts_20    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dts_25    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dts_30    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dts_35    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define dts_60    1 "Yes" 2 "No" 
+                       3 "Have not crossed the border in past 5 years" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define dts_65    1 "Yes - Specify" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define cii_10    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_15    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_30    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_40    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_45    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_50    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_55    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define cii_60    1 "No confidence at all" 2 "..." 3 "..." 4 "..." 
+                       5 "A great deal of confidence" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define srh_110   1 "Excellent" 2 "Very good" 3 "Good" 4 "Fair" 5 "Poor" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define srh_115   1 "Excellent" 2 "Very good" 3 "Good" 4 "Fair" 5 "Poor" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define slm_01    0 "Very dissatisfied" 10 "Very satisfied" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define dwelc     1 "Single detached house" 
+                       2 "Apartment (building with < 5 stories)" 
+                       3 "Apartment (building with > 5 stories)" 4 "Other" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define odr_10    1 "Owned, even if you are still paying for it" 
+                       2 "Rented, even if no cash rent is paid" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define odr_20    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define lrd_10    1 "Less than 6 months" 
+                       2 "6 months to less than 1 year" 
+                       3 "1 year to less than 3 years" 
+                       4 "3 years to less than 5 years" 
+                       5 "5 years to less than 10 years" 
+                       6 "10 years and over" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define lrn_10    1 "Less than 6 months" 
+                       2 "6 months to less than 1 year" 
+                       3 "1 year to less than 3 years" 
+                       4 "3 years to less than 5 years" 
+                       5 "5 years to less than 10 years" 
+                       6 "10 years and over" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define qin_10    1 "Most of the people in your neighbourhood" 
+                       2 "Many of the people in your neighbourhood" 
+                       3 "A few of the people in your neighbourhood" 
+                       4 "None of the people in your neighbourhood" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define qin_20    1 "Yes" 2 "No" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define qin_30    1 "Yes" 2 "No" 3 "Just moved into the area" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define qin_40    1 "Yes" 2 "No" 3 "Just moved into the area" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define qin_50    0 "None" 1 "1 to 5" 2 "6 to 10" 3 "Over 10" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define relig7    1 "Buddhist" 2 "Christian" 3 "Hindu" 4 "Jewish" 
+                       5 "Islam (Muslim)" 6 "Other" 7 "No religion" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define ree_02    1 "At least once a week" 2 "At least once a month" 
+                       3 "At least 3 times a year" 4 "Once or twice a year" 
+                       5 "Not at all" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define ree_03    1 "At least once a day" 2 "At least once a week" 
+                       3 "At least once a month" 4 "At least 3 times a year" 
+                       5 "Once or twice a year" 6 "Not at all" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define rlr_110   1 "Very important" 2 "Somewhat important" 
+                       3 "Not very important" 4 "Not at all important" 
+                       6 "Valid skip" 7 "Don't know" 8 "Refusal" 
+                       9 "Not stated" ;
+label define lanch     1 "English only" 2 "French only" 
+                       3 "Other language only" 4 "English and French equally" 
+                       5 "English and other equally" 
+                       6 "French and other equally" 
+                       7 "English, French and other equally" 96 "Valid skip" 
+                       97 "Don't know" 98 "Refusal" 99 "Not stated" ;
+label define lanhsdc   1 "English only" 2 "French only" 3 "Other languages" 
+                       4 "Multiple languages" 6 "Valid skip" 7 "Don't know" 
+                       8 "Refusal" 9 "Not stated" ;
+label define incm      1 "No income" 2 "Less than $ 5,000" 
+                       3 "$ 5,000 to $ 9,999" 4 "$ 10,000 to $ 14,999" 
+                       5 "$ 15,000 to $ 19,999" 6 "$ 20,000 to $29,999" 
+                       7 "$ 30,000 to $ 39,999" 8 "$ 40,000 to $ 49,999" 
+                       9 "$ 50,000 to $ 59,999" 10 "$ 60,000 to $ 79,999" 
+                       11 "$ 80,000 to $ 99,999" 12 "$ 100,000 or more" 
+                       96 "Valid skip" 97 "Don't know" 98 "Refusal" 
+                       99 "Not stated" ;
+label define incmhsd   1 "No income or loss" 2 "Less than $ 5,000" 
+                       3 "$ 5,000 to $ 9,999" 4 "$ 10,000 to $ 14,999" 
+                       5 "$ 15,000 to $ 19,999" 6 "$ 20,000 to $ 29,999" 
+                       7 "$ 30,000 to $ 39,999" 8 "$ 40,000 to $ 49,999" 
+                       9 "$ 50,000 to $ 59,999" 10 "$ 60,000 to $ 79,999" 
+                       11 "$ 80,000 to $ 99,999" 12 "$ 100,00 to $ 149,999" 
+                       13 "$ 150,000 or more" 96 "Valid skip" 97 "Don't know" 
+                       98 "Refusal" 99 "Not stated" ;
+label define hsdeligc  4 "4 or more household members" 6 "Valid skip" 
+                       7 "Don't know" 8 "Refusal" 9 "Not stated" ;
+label define wght_per  99999.9996 "Valid skip" 99999.9997 "Don't know" 
+                       99999.9998 "Refusal" 99999.9999 "Not stated" ;
+label define wtbs_001  99999.9996 "Valid skip" 99999.9997 "Don't know" 
+                       99999.9998 "Refusal" 99999.9999 "Not stated" ;

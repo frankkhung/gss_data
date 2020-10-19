@@ -25,6 +25,7 @@ voting <- voting %>% filter(born_in_canada == "Born in Canada" | born_in_canada 
 ```
 
 ```{r, eval = FALSE, include=FALSE}
+# Set the weakly informed priors for the multilevel regression
 prior_10 <- c(prior("normal(0,10)", class = "b", coef = "sense_belongNoopinion"),
            prior("normal(0,10)", class = "b", coef = "sense_belongNotstated"),
            prior("normal(0,10)", class = "b", coef = "sense_belongRefusal"),
@@ -36,64 +37,31 @@ prior_10 <- c(prior("normal(0,10)", class = "b", coef = "sense_belongNoopinion")
            prior("student_t(3, 0, 2.5)", class = sd, coef = "Intercept", group = "province"),
            prior("student_t(3, 0, 2.5)", class = sd, group = "province"))
 
+# Fit the model by using the prior
 sense_weak_fit <- brm(formula = fed_elec_voted ~ 1 + sense_belong + born_in_canada + (1|province), family = bernoulli(), seed = 123, data = voting, prior = prior_10, core = 4)
 ```
 
 
 ```{r, include=FALSE}
-
+# load the already saved model
 load("inputs/sense_weak_prior.rda")
-prior <- prior_summary(sense_weak_fit)
-
-tau2 <- VarCorr(sense_weak_fit)[[1]]$sd[1]^2
-icc <- tau2 / (tau2 + (pi^2 / 3) )
-
-random_effect <- ranef(sense_weak_fit)
-
-r_Intercept <- random_effect$province[, , 1] %>%
-  as_tibble() %>%
-  rownames_to_column(var = "Provinces") %>%
-  mutate(Variable = "sd(Intercept)")
-
-province_names <- rownames(random_effect$province)
-r_Intercept$Provinces <- province_names
-
-r_Intercept %>%
-  mutate(Contain_Zero = if_else(Q2.5*Q97.5 > 0, "no", "yes")) %>%
-  ggplot(aes(x = Provinces, y = Estimate, col = Contain_Zero)) +
-  geom_point() +
-  geom_errorbar(aes(ymin=Q2.5, ymax=Q97.5)) +
-  facet_grid(. ~ Variable, scale = "free") +
-  coord_flip() +
-  labs(title = "Variation in Each Province")
-
-
-coeff <- as.data.frame(fixef(sense_weak_fit))
-
-sense_dont_in <- coeff$Estimate[1] + coeff$Estimate[1]
-sense_noop_in <- coeff$Estimate[1] + coeff$Estimate[2]
-sense_notstate_in <- coeff$Estimate[1] + coeff$Estimate[3] 
-sense_refuse_in <- coeff$Estimate[1] + coeff$Estimate[4] 
-sense_somestrong_in <- coeff$Estimate[1] + coeff$Estimate[5] 
-sense_someweak_in <- coeff$Estimate[1] + coeff$Estimate[5]
-sense_strong_in <- coeff$Estimate[1] + coeff$Estimate[6] 
-sense_weak_in <- coeff$Estimate[1] + coeff$Estimate[7]
-odd_in <- as.data.frame(rbind(sense_dont_in, sense_noop_in, sense_notstate_in, sense_refuse_in, sense_somestrong_in, sense_someweak_in, sense_strong_in, sense_weak_in))
-
-sense_dont_out <- coeff$Estimate[1] + coeff$Estimate[9]
-sense_noop_out <- coeff$Estimate[1] + coeff$Estimate[2] + coeff$Estimate[9]
-sense_notstate_out <- coeff$Estimate[1] + coeff$Estimate[3] + coeff$Estimate[9]
-sense_refuse_out <- coeff$Estimate[1] + coeff$Estimate[4] + coeff$Estimate[9]
-sense_somestrong_out <- coeff$Estimate[1] + coeff$Estimate[5] + coeff$Estimate[9]
-sense_someweak_out <- coeff$Estimate[1] + coeff$Estimate[5] + coeff$Estimate[9]
-sense_strong_out <- coeff$Estimate[1] + coeff$Estimate[6] + coeff$Estimate[9]
-sense_weak_out <- coeff$Estimate[1] + coeff$Estimate[7] + coeff$Estimate[9]
-odd_out <- as.data.frame(rbind(sense_dont_out, sense_noop_out, sense_notstate_out, sense_refuse_out, sense_somestrong_out, sense_someweak_out, sense_strong_out, sense_weak_out))
-
-odds <- rbind(odd_in, odd_out)
-
-odds$V1 <- 1/(1+exp(-odds$V1))
 ```
+
+#### Note:
+
+- Here is the link to get the source code for cleaning the raw GSS data:
+  - https://github.com/frankkhung/gss_data/blob/main/data_cleaning/gss_cleaning-1.R
+  - Follow the instruction in the file to get the GSS 2013 Survey raw data
+  - Download the files in this folder to get the dictionaries needed to tidy the data:
+    - https://github.com/frankkhung/gss_data/tree/main/data_cleaning
+
+
+- Here is the link to get the source code of this report:
+  - https://github.com/frankkhung/gss_data/blob/main/data_analysis.Rmd
+  - Please also download the files in this folder to make this file reproducible. 
+    - https://github.com/frankkhung/gss_data/tree/main/inputs
+
+
 
 # Abstract
 
@@ -204,6 +172,7 @@ For the priors that we pick are the weakly informed priors (Stan-Dev, 2020). As 
 To make sure this is a reasonable model, we want to check some diagnosis. Firstly, we want to see if the model converges. From the chart below (Graph 1),we can see that no divergences are showing in each estimate in different chains that we run in the model.
 
 ```{r, echo=FALSE, message=FALSE}
+# plot the mcmc trace plot to check for the divergence of the model
 mcmc_plot(sense_weak_fit, type = "trace") +
   labs(title = "Graph 1: Trace plot for Divergence") +
   theme(plot.title = element_text(face="bold"))
@@ -212,7 +181,8 @@ mcmc_plot(sense_weak_fit, type = "trace") +
 
 Secondly, we want to check if this plot has a proper fit. From the chart (Graph 2) we can see that the model has a remarkably similar density plot as the observations. Typically, for other Generalized Linear Models, one of the assumptions involves constant error variance. However, since the model we are using here is logistic regression and error variance is not a parameter in the Bernoulli distribution, we will not consider this assumption.
 
-```{r, echo=TRUE, message=FALSE}
+```{r, echo=FALSE, message=FALSE}
+# plot the fitness of the model through pp_check
 bayesplot::pp_check(sense_weak_fit) +
   labs(title ="Graph 2: Model Fitness")
 ```
@@ -229,6 +199,7 @@ discuss the results of this model.
 Here are the general model and the fitness of the results.
 
 ```{r, echo=FALSE}
+# show the summary of the model
 summary(sense_weak_fit)
 ```
 
@@ -252,15 +223,18 @@ $$
 The variance for logistic distribution is $\frac{\pi^2}{3}$. From the result, we can say that provinces contribute 2.4% of the variance to the model.
 
 ```{r, echo=FALSE}
+# calculate the icc 
 tau2 <- VarCorr(sense_weak_fit)[[1]]$sd[1]^2
 icc <- tau2 / (tau2 + (pi^2 / 3) )
 icc <- as.data.frame(icc)
 colnames(icc) <- "Probability"
 rownames(icc) <- "Intraclass Correlation Coefficient"
+# make icc into a table
 kable(icc, digits = 3, caption = "ICC for province")
 ```
 
 ```{r, echo=FALSE}
+# plot the posterior distribution for each posterior intercept estimate
 mcmc_plot(sense_weak_fit, type = "areas") +
   labs(title = "Graph 3: Distribution Plot for Parameter Posterior Estimation")
 ```
@@ -271,16 +245,20 @@ into the Group-Level Effects, the plot below (Graph 4) demonstrates the variatio
 
 
 ```{r, echo=FALSE}
+# get the group-level effect
 random_effect <- ranef(sense_weak_fit)
 
+# change the coefficients that we got above into a dataframe
 r_Intercept <- random_effect$province[, , 1] %>%
   as_tibble() %>%
   rownames_to_column(var = "Provinces") %>%
   mutate(Variable = "sd(Intercept)")
 
+# change the names in the r_Intercept data
 province_names <- rownames(random_effect$province)
 r_Intercept$Provinces <- province_names
 
+# plot the variation graph for each 
 r_Intercept %>%
   mutate(Contain_Zero = if_else(Q2.5*Q97.5 > 0, "no", "yes")) %>%
   ggplot(aes(x = Provinces, y = Estimate, col = Contain_Zero)) +
@@ -300,8 +278,10 @@ probability of each case by predicting each combination of cases and calculate t
 (Table 2) shows the probability of different cases. 
 
 ```{r, echo=FALSE}
+# get the coefficient for the estimated coefficient
 coeff <- as.data.frame(fixef(sense_weak_fit))
 
+# calculate the log odds for each case (born in canada)
 sense_dont_in <- coeff$Estimate[1] + coeff$Estimate[1]
 sense_noop_in <- coeff$Estimate[1] + coeff$Estimate[2]
 sense_notstate_in <- coeff$Estimate[1] + coeff$Estimate[3] 
@@ -312,6 +292,7 @@ sense_strong_in <- coeff$Estimate[1] + coeff$Estimate[6]
 sense_weak_in <- coeff$Estimate[1] + coeff$Estimate[7]
 odd_in <- as.data.frame(rbind(sense_dont_in, sense_noop_in, sense_notstate_in, sense_refuse_in, sense_somestrong_in, sense_someweak_in, sense_strong_in, sense_weak_in))
 
+# calculate the log odds for each case (born outside of canada)
 sense_dont_out <- coeff$Estimate[1] + coeff$Estimate[9]
 sense_noop_out <- coeff$Estimate[1] + coeff$Estimate[2] + coeff$Estimate[9]
 sense_notstate_out <- coeff$Estimate[1] + coeff$Estimate[3] + coeff$Estimate[9]
@@ -322,12 +303,16 @@ sense_strong_out <- coeff$Estimate[1] + coeff$Estimate[6] + coeff$Estimate[9]
 sense_weak_out <- coeff$Estimate[1] + coeff$Estimate[7] + coeff$Estimate[9]
 odd_out <- as.data.frame(rbind(sense_dont_out, sense_noop_out, sense_notstate_out, sense_refuse_out, sense_somestrong_out, sense_someweak_out, sense_strong_out, sense_weak_out))
 
+# combine the tables above
 odds <- rbind(odd_in, odd_out)
 
+# change the odds data by inverse logit
 odds$V1 <- 1/(1+exp(-odds$V1))
+
+# change the column name
 colnames(odds) <- "Probability"
 
-
+# present the table
 kable(odds, caption = "Mean Probability for each case", digits = 3)
 ```
 
@@ -346,7 +331,9 @@ opinion, somewhat strong opinion, and somewhat weak opinion have a negative rela
 with the log-odds of the probability of voting in the Federal Election. 
 
 ```{r, echo=FALSE}
+# change intercept into "dont know" for sense of belonging
 rownames(coeff)[1] <- "sense_belongDontknow"
+# create the table for the coefficients
 kable(coeff, digits = 3, caption = "Coefficient Estimates")
 ```
 
@@ -358,6 +345,7 @@ mean probability of them. We can see that people born in Canada have a way highe
 probability of voting inthe Federal Election. (TABLE 4)
 
 ```{r, echo=FALSE}
+# present the probability for each case (separated by born in or out canada)
 prob_sense <- as.data.frame(cbind(odds$Probability[1:8], odds$Probability[9:16]))
 rownames(prob_sense) <- c("sense_dont", "sense_noop", "sense_notstate", "sense_refuse", "sense_somestrong", "sense_someweak", "sense_strong", "sense_weak")
 colnames(prob_sense) <- c("Born In", "Born Out")
@@ -375,6 +363,7 @@ indicates that there are underlying reasons why this group of people has negativ
 effects on voting.
 
 ```{r, echo=FALSE}
+# explore the count for sense belong's categories for respondents born outside of canada
 voting <- voting %>% filter(born_in_canada == "Born outside Canada")
 out_belong <- as.data.frame(count(voting, sense_belong))
 kable(out_belong, caption = "Counts for Sense of Belonging Response (Born Outside of Canada)")

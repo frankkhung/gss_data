@@ -1,5 +1,5 @@
 ---
-title: "How the Immigration in Canada Affected the Voter Turnout Rate"
+title: "How Immigration in Canada Affected Voter Turnout Rate"
 author: "Chien-Che Hung"
 date: "10/14/2020"
 output: pdf_document
@@ -22,6 +22,18 @@ gss$family_size[gss$family_size == "6"] <- "6 or more"
 
 voting <- gss %>% filter(fed_elec_voted == "Yes" | fed_elec_voted == "No")
 voting <- voting %>% filter(born_in_canada == "Born in Canada" | born_in_canada == "Born outside Canada")
+
+voting$fed_elec_voted
+ecols <- c(Brown="brown2",  Blue = "blue2",
+           Hazel = "darkgoldenrod3", Green = "green4")
+
+voting %>%
+  mutate(born_in_canada = if_else(born_in_canada == "Born in Canada", 1, 0)) %>%
+  ggplot(aes(x = as.factor(voting$born_in_canada), y = as.factor(fed_elec_voted), color = as.factor(province))) +
+  geom_point(alpha = .1, position = "jitter")+
+  geom_smooth(method = "glm", se = F) +
+  theme(legend.position = "none")
+
 ```
 
 ```{r, eval = FALSE, include=FALSE}
@@ -63,19 +75,19 @@ load("inputs/sense_weak_prior.rda")
 
 
 
-# Abstract
+# 1. Abstract
 
 As international immigration accounted for most of Canada's population growth, we want
-to explore how this phenomenon affected civil participation in 2013. This report uses a
-multilevel logistic regression model to analyze how a sense of belonging and birthplace
-contribute to the voter turnout rate in the Federal election. As people born in Canada
-would have different levels of sense of belonging than people born outside of Canada,
+to explore how this phenomenon affected civil participation in the Federal election in 2013.
+This report uses a multilevel logistic regression model to analyze how a sense of belonging 
+and birthplace contribute to the voter turnout rate in the Federal election. As people born 
+in Canada would have different levels of sense of belonging than people born outside of Canada,
 our analysis shows that a sense of belonging contributes a little to the voter turnout
 rate. On the other hand, the single fact of whether the respondent born in Canada or not
 negatively affected the voter turnout rate. Additionally, different provinces would
 affect the voting participation rate.
 
-# Introduction
+# 2. Introduction
 
 This report is going to analyze the data obtained from the 2013 General Social Survey on
 Social Identity. The survey topics range from social networks, civil participation,
@@ -89,7 +101,7 @@ participation rate in the Federal Election. The report structure includes explai
 data, interpreting the model that we use, presenting the results, and, most importantly,
 discussing the results.
 
-# Data
+# 3. Data
 
 This data covers varying topics, for example, social networks, civic participation, pride, the main activity of
 respondent, birthplace, and well-being. With these categories, analysts can easily combine different variables to
@@ -98,8 +110,7 @@ other background information and activities. The weakness of this data would be 
 from different categories. It would be tedious for analysts to go over each variable one by one or find the most
 significant features from the dataset. Also, the data only includes respondents from ten provinces, excluding
 residents of the Yukon, Northwest Territories, and Nunavut. By doing this, the survey and data would not be inclusive
-enough. For this report, it considers variables that would be related to the election. The topic would be focusing on
-the social participation in voting, including federal election, provincial election, and municipal election.
+enough.
 
 Several questions allow write-in responses, and it will be coded into a category in the question that fits the
 response. By doing this, it is possible that the survey would lose some information or even categorize the response
@@ -121,7 +132,53 @@ of telephone numbers to Statistics Canada from telephone companies or Census dat
 Register, which contains all dwellings in the ten provinces. For the sample size, the targeted sample size was 31973.
 However, the number of respondents who answered was 27695.
 
-# Model
+In the Introduction section, we mentioned that we would explore how immigration affected the Federal Election voter turnout rate.
+Thus, we picked three variables along with the provinces that potentially contribute to our model's variation because of
+the sampling strategy. Here, we briefly visualize the distribution of the variables. The below graphs show the distributions of 
+sense of belonging (Graph 1), whether born in Canada (Graph 2), and Voting Turnout (Graph 3).
+
+```{r, echo=FALSE}
+ggplot(data=voting, aes(x = born_in_canada)) +
+  geom_bar(stat = "count") +
+  xlab("Born In Canada or Not") + 
+  labs(title = "Graph 1: Count for born in Canada or not")
+
+ggplot(data=voting, aes(x = sense_belong)) +
+  geom_bar(stat = "count") +
+  xlab("Born In Canada or Not") + 
+  labs(title = "Graph 2: Count for sense of belonging") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=voting, aes(x = fed_elec_voted)) +
+  geom_bar(stat = "count") +
+  xlab("Born In Canada or Not") + 
+  labs(title = "Graph 3: Count for voted or not") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+Since the survey was conducted by stratified random sampling, we want to take a look of the the proportion of the province in different variables. We can see that provinces do pose effects on the variables: Born in Canada or not (Graph 4), sense of belongin (Graph 5), and voted or not (Graph 6). 
+
+```{r, echo=FALSE}
+ggplot(data=voting, aes(x= born_in_canada, fill=province)) +
+  geom_bar(position="fill") +
+  scale_y_continuous(labels = scales::percent) +
+  xlab("Born In Canada or Not") + 
+  labs(title = "Graph 4: Proportion of Each Province for Birthplace")
+ggplot(data=voting, aes(x= sense_belong, fill=province)) +
+  geom_bar(position="fill") +
+  scale_y_continuous(labels = scales::percent) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = "Graph 5: Proportion of Each Province in Sense of Belonging Options")
+ggplot(data=voting, aes(x= fed_elec_voted, fill=province)) +
+  geom_bar(position="fill") +
+  scale_y_continuous(labels = scales::percent) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = "Graph 6: Proportion of Each Province in Sense of Belonging Options")
+```
+
+
+# 4. Model
 
 Since we desire to explore whether the sense of belonging or respondents' birthplace would affectpeople's voting
 turnout rate, our model's response variable would be binary. As in the Data Section mentioned, the respondents were
@@ -169,22 +226,22 @@ $$
 
 For the priors that we pick are the weakly informed priors (Stan-Dev, 2020). As the coefficients in logistic regression could be a broad range, so we make the priors for the coefficients generally distributed with the variance of 10 and 0 mean. The standard deviation for the provinces would be in student-T distribution with 0 mean and 2.5 standard deviations. By having weakly informed prior, we can prevent our data from being too sensitive to our prior, especially with those provinces with fewer samples. 
 
-To make sure this is a reasonable model, we want to check some diagnosis. Firstly, we want to see if the model converges. From the chart below (Graph 1),we can see that no divergences are showing in each estimate in different chains that we run in the model.
+To make sure this is a reasonable model, we want to check some diagnosis. Firstly, we want to see if the model converges. From the chart below (Graph 7),we can see that no divergences are showing in each estimate in different chains that we run in the model.
 
 ```{r, echo=FALSE, message=FALSE}
 # plot the mcmc trace plot to check for the divergence of the model
 mcmc_plot(sense_weak_fit, type = "trace") +
-  labs(title = "Graph 1: Trace plot for Divergence") +
+  labs(title = "Graph 7: Trace plot for Divergence") +
   theme(plot.title = element_text(face="bold"))
 ```
 
 
-Secondly, we want to check if this plot has a proper fit. From the chart (Graph 2) we can see that the model has a remarkably similar density plot as the observations. Typically, for other Generalized Linear Models, one of the assumptions involves constant error variance. However, since the model we are using here is logistic regression and error variance is not a parameter in the Bernoulli distribution, we will not consider this assumption.
+Secondly, we want to check if this plot has a proper fit. From the chart (Graph 8) we can see that the model has a remarkably similar density plot as the observations. Typically, for other Generalized Linear Models, one of the assumptions involves constant error variance. However, since the model we are using here is logistic regression and error variance is not a parameter in the Bernoulli distribution, we will not consider this assumption.
 
 ```{r, echo=FALSE, message=FALSE}
 # plot the fitness of the model through pp_check
 bayesplot::pp_check(sense_weak_fit) +
-  labs(title ="Graph 2: Model Fitness")
+  labs(title ="Graph 8: Model Fitness")
 ```
 
 
@@ -194,17 +251,20 @@ nonlinear multivariate multilevel models using 'Stan" for full Bayesian Inferenc
 (https://cran.r-project.org/web/packages/brms/index.html). The following section will present and
 discuss the results of this model.
 
-# Result
+# 5. Result
 
 Here are the general model and the fitness of the results.
 
 ```{r, echo=FALSE}
 # show the summary of the model
-summary(sense_weak_fit)
+population <- summary(sense_weak_fit)$fixed
+kable(population, digits = 3, caption = "Population-Level Effect")
+group <- summary(sense_weak_fit)$random
+kable(group, digits = 3, caption = "Group-Level Effect")
 ```
+\newpage
 
-
-It presents the Group-Level (Province) Effects and Population-Level Effects (Sense of Belonging and
+It presents the Group-Level (Province) Effects (Table 1) and Population-Level Effects (Table 2, Sense of Belonging and
 Born In Canada or Not). The estimation in the Population-Level Effects is shown in Log-Odds. If it is
 positive, it means that it positively affects the odds and vice versa. With the assistance of the
 distribution of each coefficient, we can see the importance of them. The ones that touch on zero 
@@ -214,13 +274,14 @@ Population-Level Effects are far from 0. It means that they have a certain degre
 response variable.
 
 Since we are assessing the effects in multilevel, we want to see how much variation that the province contributes to the model by finding the Intraclass Correlation Coefficient with the formula.
+
 $$
 \begin{aligned}
 ICC = \frac{\sigma^2_{group}}{\sigma^2_{group}+\sigma^2_{population}}
 \end{aligned}
 $$
 
-The variance for logistic distribution is $\frac{\pi^2}{3}$. From the result, we can say that provinces contribute 2.4% of the variance to the model.
+The variance for logistic distribution is $\frac{\pi^2}{3}$. From the result, we can say that provinces contribute 2.4% of the variance to the model. (Table 3)
 
 ```{r, echo=FALSE}
 # calculate the icc 
@@ -236,12 +297,14 @@ kable(icc, digits = 3, caption = "ICC for province")
 ```{r, echo=FALSE}
 # plot the posterior distribution for each posterior intercept estimate
 mcmc_plot(sense_weak_fit, type = "areas") +
-  labs(title = "Graph 3: Distribution Plot for Parameter Posterior Estimation")
+  labs(title = "Graph 9: Distribution Plot for Parameter Posterior Estimation")
 ```
 
-From the broader view from the distribution graph, we can see that the provinces' variation will not be zero since the
+\newpage
+
+From the broader view from the distribution graph (Graph 9), we can see that the provinces' variation will not be zero since the
 distribution does not include zero, which means that provinces have effects on the election turnout. As we look closer
-into the Group-Level Effects, the plot below (Graph 4) demonstrates the variations each province contributed.
+into the Group-Level Effects, the plot below (Graph 10) demonstrates the variations each province contributed.
 
 
 ```{r, echo=FALSE}
@@ -266,7 +329,7 @@ r_Intercept %>%
   geom_errorbar(aes(ymin=Q2.5, ymax=Q97.5)) +
   facet_grid(. ~ Variable, scale = "free") +
   coord_flip() +
-  labs(title = "Graph 4: Variation in Each Province")
+  labs(title = "Graph 10: Variation in Each Province")
 ```
 
 If the estimated variation credible interval contains zero, it means that the variation regarding the response variable
@@ -275,7 +338,7 @@ make a difference in the outcome.
 
 We use logistic regression as our model to fit the binary response data. Due to this reason, we can calculate the mean
 probability of each case by predicting each combination of cases and calculate the inverse logit scale. The below table
-(Table 2) shows the probability of different cases. 
+(Table 4) shows the probability of different cases. 
 
 ```{r, echo=FALSE}
 # get the coefficient for the estimated coefficient
@@ -316,12 +379,11 @@ colnames(odds) <- "Probability"
 kable(odds, caption = "Mean Probability for each case", digits = 3)
 ```
 
+# 6. Discussion
 
-# Discussion
+## 6-1. Result Discussion
 
-## Result Discussion
-
-Graph 3, even though some of the credible intervals for coefficient estimate include 0,
+Graph 9, even though some of the credible intervals for coefficient estimate include 0,
 the coefficients have the possibility of posing no effects to the voting turnout.
 However, we will still take a look at the effects of each of them. In the table below,
 we can see that the respondents who did not know about their feeling regarding the sense
@@ -342,7 +404,7 @@ effect on the Federal Election voting turnout. It means that people born outside
 Canada, residing in Canada while the survey was conducted, did not vote during the 
 election. The below table shows the probability of voting in each situation with the 
 mean probability of them. We can see that people born in Canada have a way higher 
-probability of voting inthe Federal Election. (TABLE 4)
+probability of voting inthe Federal Election. (Talbe 6)
 
 ```{r, echo=FALSE}
 # present the probability for each case (separated by born in or out canada)
@@ -358,7 +420,7 @@ kable(prob_sense, caption = "Mean Probability for each case", digits = 3)
 
 
 Interestingly, as we look at people born outside of Canada's response to the sense of
-belonging, most of them responded in the "Strong" category. (Table 5) This result
+belonging, most of them responded in the "Strong" category. (Table 7) This result
 indicates that there are underlying reasons why this group of people has negative
 effects on voting.
 
@@ -369,11 +431,11 @@ out_belong <- as.data.frame(count(voting, sense_belong))
 kable(out_belong, caption = "Counts for Sense of Belonging Response (Born Outside of Canada)")
 ```
 
-Graph 4 shows the variation caused in the Group-Level (provinces). Specifically, residents in Quebec, Saskatchewan, and Alberta would be most likely to vote while living in Ontario, Newfoundland, Labrador, New Brunswick, Manitoba, and British Columbia could suggest being in these provinces would not be the incentives of why the residences vote.
+Graph 10 shows the variation caused in the Group-Level (provinces). Specifically, residents in Quebec, Saskatchewan, and Alberta would be most likely to vote while living in Ontario, Newfoundland, Labrador, New Brunswick, Manitoba, and British Columbia could suggest being in these provinces would not be the incentives of why the residences vote.
 
 To conclude the findings in a broader context, a sense of belonging to Canada possibly would not contribute to voting turnout. On the other hand, the respondents' birthplace creates a massive difference between whether people would vote. For different provinces in Canada, some of the provinces would influence the decision of whether their residents should vote or not.
 
-## Weakness and Caveats
+## 6-2. Weakness and Caveats
 
 There are some possible weaknesses and caveats in the model. From the analysis above, we
 can see that most of the answers from the sense of belonging question could not affect
@@ -386,7 +448,7 @@ hard and infeasible to generalize this conclusion regarding a sense of belonging
 other countries. However, as immigration is happening in other countries, the massive
 difference in whether born-in-Canada could be utilized in other analyses.
 
-## Future Work
+## 6-3. Future Work
 
 POLYAS, an online voting company, states that there is an increasing division between
 different voting groups. One evidence is that in General Election in the UK in 2015, 75%
@@ -401,17 +463,17 @@ whether the respondents were born in Canada. We could dig more into this group o
 people, and policymakers could also shift their ideologies towards the people born
 outside of Canada to increase the voter turnout rate.
 
-# Reference
+# 7. Reference
 
-## Data Citation
+## 7-1. Data Citation
 
-### Data
+### 7-1-1. Data
 - Statistics Canada (2013). Canadian General Social Surveys Cycle 27: Social Identity 2013 (Version 2)
 
-### Data Cleaning Code Adapted From:
+### 7-1-2. Data Cleaning Code Adapted From:
 - Alexander R. and Caetano S. (2020) gss_clearning-1.R (Version 1) 
 
-## Report Citation
+## 7-2. Report Citation
 
 - Gabry J, Mahr T (2020). “bayesplot: Plotting for Bayesian
   Models.” R package version 1.7.2, <URL:
@@ -441,6 +503,7 @@ outside of Canada to increase the voter turnout rate.
   statistical computing. R Foundation for Statistical Computing,
   Vienna, Austria. URL https://www.R-project.org/.
 - Stan-Dev. stan-dev/stan. GitHub. https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations. 
+- Stan Development Team. 2018. RStan: the R interface to Stan. R package version 2.17.3.   http://mc-stan.org
 - Thevenot, S. (2020, July 20). Immigration to drive Canada's population growth as global birth rates fall. CIC News. https://www.cicnews.com/2020/07/immigration-to-drive-canadas-population-growth-as-global-birthrates-fall-0715086.html. 
 - Wickham et al., (2019). Welcome to the tidyverse. Journal of
   Open Source Software, 4(43), 1686,

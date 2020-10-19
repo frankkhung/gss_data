@@ -94,7 +94,7 @@ Social Identity. The survey topics range from social networks, civil participati
 birthplace to a sense of belonging and trust. Since there are varying topics that could
 be covered, we will discuss whether the birthplace and sense of belonging would affect
 the respondents voting turnout rate. Statistics Canada suggests that two-third of the
-population growth was accounted for by international immigrants in 2006. The report from
+population growth was accounted for by international immigrants in 2006 (Statistics Canada, 2016). The report from
 CIC News points out that 82% of the population growth in 2019 came from immigration in
 Canada (Thevenot, 2020). We want to explore whether the upsurge in immigration would affect the
 participation rate in the Federal Election. The report structure includes explaining the
@@ -102,6 +102,13 @@ data, interpreting the model that we use, presenting the results, and, most impo
 discussing the results.
 
 # 3. Data
+
+This General Social Survey program surveys the ten provinces from June 2013 to March 2014, who were above
+15-year-old. These surveys were asked through interviews via computer-assisted telephone interviewing (CATI) and
+electronic (Internet) questionnaire (EQ). Unlike previous years' surveys conducted through Random Digit Dialing,
+respondents in this 2013 survey were reached by telephone numbers available to Statistics Canada and the Address
+Register. For Electronic Questionnaire, during the phone interview, if the respondents agreed to complete the survey
+one, the interviewer would send them emails containing the survey and its access code.
 
 This data covers varying topics, for example, social networks, civic participation, pride, the main activity of
 respondent, birthplace, and well-being. With these categories, analysts can easily combine different variables to
@@ -119,18 +126,21 @@ information for the respondents. Also, since this survey is conducted through co
 interviewing and electronic questionnaires, it is customizable for respondents who are not eligible for some
 activities, such as voting.
 
-This General Social Survey program surveys the ten provinces from June 2013 to March 2014, who were above
-15-year-old. These surveys were asked through interviews via computer-assisted telephone interviewing (CATI) and
-electronic (Internet) questionnaire (EQ). Unlike previous years' surveys conducted through Random Digit Dialing,
-respondents in this 2013 survey were reached by telephone numbers available to Statistics Canada and the Address
-Register. For Electronic Questionnaire, during the phone interview, if the respondents agreed to complete the survey
-one, the interviewer would send them emails containing the survey and its access code.
-
 As we mentioned above, the population was the ten provinces, which Yukon, Northwest Territories, and Nunavut were
 excluded. For the frame for this survey, it was created from different components. The first component was the list
 of telephone numbers to Statistics Canada from telephone companies or Census data. The second one was the Address
 Register, which contains all dwellings in the ten provinces. For the sample size, the targeted sample size was 31973.
 However, the number of respondents who answered was 27695.
+
+Even though there were two components in the sample frame, both components were treated the same. Since the survey was
+conducted in ten provinces, the provinces would be a homogeneous group (stratum). After making the provinces strata, a
+simple random sample without replacement (SRSWR) was utilized to collect data. The entire process was a stratified simple
+random sample. By using this sampling technique, allows us to obtain a sample that best represents the entire population.
+Comparing to directly sampling the entire country, we would obtain unbalanced results. For example, the majority of the
+respondents appear to be in Ontario. The survey would lose its purpose of recognizing other provinces' opinions. Besides,
+the GSS program also oversampled immigrants and youth since in some Metropolitan Areas of different provinces have
+evidently more immigrants and youth. With these oversampled samples, different weightings would be applied to them in a
+later process.
 
 In the Introduction section, we mentioned that we would explore how immigration affected the Federal Election voter turnout rate.
 Thus, we picked three variables along with the provinces that potentially contribute to our model's variation because of
